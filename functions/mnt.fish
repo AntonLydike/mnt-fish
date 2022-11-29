@@ -93,7 +93,7 @@ function mnt_core_pretty_list_mounts
             echo -n "[-] "
         end
         
-        set pretty (string split '\t' (mnt_core_pretty_print_line $_flag_full_paths $pretty_print_mode $line))
+        set pretty (string split \t (mnt_core_pretty_print_line $_flag_full_paths $pretty_print_mode $line))
 
         if ! set -q _flag_full_paths
             set pretty[1] (shorten_path $pretty[1])
