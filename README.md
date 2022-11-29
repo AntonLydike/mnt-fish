@@ -46,7 +46,11 @@ It also prints the device, the devices label, if available (otherwise `???`) and
 
 You can mount a volume by simply specifying `mnt IDENTIFIER`, it will autocomplete available block devices for you, but you can also specify (parts of) labels or size, basically anything that identifies the volume uniquely. (The volume is selected by grepping for `IDENTIFIER` in the output of `mnt_core_list_mounts`)
 
+![Mount autocompletion in action](img/mount-completions.png)
+
 Unmounting is just as easy, you can run `mnt -u IDENTIFIER`, with the same rules for the identifier. The autocompletion will only offer you already mounted devices.
+
+![Unmounting volumes](img/mount-unmount-cycle.png)
 
 ### Configuration
 

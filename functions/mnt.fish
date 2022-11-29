@@ -2,7 +2,7 @@ set _MNT_SEEN_DEVICES /dev/sda /dev/nvme0n1
 
 function mnt
 
-    argparse --name=mnt 'h/help' 'l/list' 'f/full-paths' 'u/unmount' -- $argv
+    argparse --name=mnt 'h/help' 'l/list' 'f/full-paths' 'u/unmount=' -- $argv
 
     if set -q _flag_help
         echo "mnt - A mounting utility"
@@ -25,12 +25,14 @@ function mnt
         return 0
     end
 
-    if set -q _flag_list; or ! count $argv > /dev/null
+    set -l unmount_target (coalesce $_flag_unmount $argv[1])
+
+    if set -q _flag_list; or test -z $unmount_target
         mnt_core_pretty_list_mounts $_flag_full_paths | sort
         return 0
     end
 
-    set -l selected_mount (mnt_core_list_mounts | rg -- (string trim -rc '/' -- $argv[1]))
+    set -l selected_mount (mnt_core_list_mounts | rg -- $unmount_target)
     
     if test (count $selected_mount) -gt 1
         echo '"'"$argv[1]"'" is ambigous, it matched:'
@@ -202,11 +204,11 @@ function mnt_core_filter
                 if test -b $info[1]
                     echo $line
                 end
-            case mounted
+            case mounted unmount
                 if mnt_core_mount_point $info[1] > /dev/null
                     echo $line
                 end
-            case unmounted
+            case unmounted mount
                 if test -b $info[1]; and ! mnt_core_mount_point $info[1] > /dev/null
                     echo $line
                 end

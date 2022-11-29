@@ -54,6 +54,30 @@ function install_copy
     cp $argv[1] $argv[2]
 end
 
+function uninstall_mnt
+    # uninstall mode!
+    echo "Uninstalling mnt..."
+    for file in $core_files $dependencies
+        if test -f $fish_config_path/$file
+            rm $fish_config_path/$file
+            echo "  Removed $fish_config_path/$file"
+        else
+            echo "  $file was not installed."
+        end
+    end
+    if set -q _flag_extras
+        echo "Uninstalling extras..."
+        for file in $extras
+            if test -f $fish_config_path/$file
+                rm $fish_config_path/$file
+                echo "  Removed $fish_config_path/$file"
+            else
+                echo "  $file was not installed."
+            end
+        end
+    end
+end
+
 function install
     argparse 'h/help' 'c/copy' 'f/force' 'e/extras' 'C/clean' -- $argv
 
@@ -104,27 +128,7 @@ function install
 
     # check for uninstall flag
     if set -q _flag_clean
-        # uninstall mode!
-        echo "Uninstalling mnt..."
-        for file in $core_files $dependencies
-            if test -f $fish_config_path/$file
-                rm $fish_config_path/$file
-                echo "  Removed $fish_config_path/$file"
-            else
-                echo "  $file was not installed."
-            end
-        end
-        if set -q _flag_extras 
-            echo "Uninstalling extras..."
-            for file in $extras
-                if test -f $fish_config_path/$file
-                    rm $fish_config_path/$file
-                    echo "  Removed $fish_config_path/$file"
-                else
-                    echo "  $file was not installed."
-                end
-            end
-        end
+        uninstall_mnt
         return 0
     end
 

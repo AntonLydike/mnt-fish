@@ -29,7 +29,7 @@ function mount-luks
         set -l pass_name $argv[2]
         set -l mapper $argv[3]
 
-        pass $PASS_NAME | head -n 1 | sudo cryptsetup luksOpen $device $mapper -
+        pass $pass_name | head -n 1 | sudo cryptsetup luksOpen $device $mapper -
         udisksctl mount -b /dev/mapper/$mapper
     end
 end
