@@ -1,3 +1,4 @@
 # mounts file, read by the mnt script. See README for more info.
 # columns are tab separated
+# scripts can use the $device and $path variables referring to the values in the first and second column respectively.
 # blockdevice	local path where it is usually mounted to 	command to mount	command to unmount 	name
