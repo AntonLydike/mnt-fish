@@ -4,12 +4,18 @@
 
 ## Install
 
+*Read the whole section before running the installer.*
+
 Run the `install.fish` script to install `mnt.fish` into your fish functions (and completions). It install all dependencies as well, which are the `coalesce` and `shorten_path` fish functions, they are:
 
  * `coalesce ARGS...` prints the first non-empty argument. 
  * `shorten_path /path/to/somewhere` shortens all path segments except the last one to be one character, smilar to fishs prompt.
 
-The install script expects your fish config folder to reside in `~/.config/fish/`. If it cant find `~/.config/fish/config.fish` it will abort the installation. You can either pass the path to your fish config to the install script, or install it manually. The install script symlinks the files from this repo into your fish config folder, which allows for easy updating using `git pull` in this repo. If you don't want that, you can specify the `--copy` flag to the install script to copy the files instead.
+If you want to install extras, you can use the `-e/--extras` flag on the install script. This will install all extra scripts.
+
+The install script expects your fish config folder to reside in `~/.config/fish/`. If it cant find `~/.config/fish/config.fish` it will abort the installation. You can either pass the path to your fish config to the install script, or install it manually. The install script symlinks the files from this repo into your fish config folder, which allows for easy updating using `git pull` in this repo. If you don't want that, you can specify the `-c/--copy` flag to the install script to copy the files instead.
+
+To uninstall, run the installer with the `-C/--clean` flag. If you want to uninstall extras, add the `-e/--extras` flag. The uninstaller will delete all files it thinks where installed by the installer from your fish config folder. **IT WILL DELETE FILES IT THINKS ARE FROM THE MNT INSTALL FROM YOUR FISH CONFIG FOLDER**. Be careful.
 
 ### External Dependencies
 

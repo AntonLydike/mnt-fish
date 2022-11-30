@@ -55,6 +55,8 @@ function install_copy
 end
 
 function uninstall_mnt
+    argparse 'e/extras' -- $argv
+
     # uninstall mode!
     echo "Uninstalling mnt..."
     for file in $core_files $dependencies
@@ -128,7 +130,7 @@ function install
 
     # check for uninstall flag
     if set -q _flag_clean
-        uninstall_mnt
+        uninstall_mnt $_flag_extras
         return 0
     end
 
