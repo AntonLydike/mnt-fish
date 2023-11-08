@@ -1,6 +1,6 @@
 function mount-luks
 
-    argparse 'u/unmount' 'h/help' -- $argv
+    argparse 'u/unmount' 'h/help' 'k/keyfile' -- $argv
 
     if set -q _flag_help
         echo "mount-luks - mount and unmount luks containers"
@@ -29,7 +29,11 @@ function mount-luks
         set -l pass_name $argv[2]
         set -l mapper $argv[3]
 
+    if set -q _flag_keyfile
+        sudo cryptsetup luksOpen $device $mapper --key-file $pass_name
+    else
         pass $pass_name | head -n 1 | sudo cryptsetup luksOpen $device $mapper -
+    end
         udisksctl mount -b /dev/mapper/$mapper
     end
 end

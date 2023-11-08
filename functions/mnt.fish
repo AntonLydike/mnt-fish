@@ -1,4 +1,4 @@
-set _MNT_SEEN_DEVICES /dev/sda /dev/nvme0n1
+set _MNT_SEEN_DEVICES /dev/nvme0n1
 
 function mnt
 
