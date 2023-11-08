@@ -162,7 +162,8 @@ function mnt_core_list_mounts
         end
 
         set -l info (string split \t $line)
-        set -a seen $info[1]
+        # append the dis to the seen list (but resolve uuid symlinks)
+        set -a seen (realpath $info[1])
         set -l size (mnt_core_get_blockdevice_size $info[1])
         
         echo $line\t"$size"
@@ -180,7 +181,7 @@ function mnt_core_list_block_dev
         end
 
         for part in $device?
-            if string match -q -- $device $seen
+            if string match -q -- $part $seen
                 continue
             end
             # get the mount point, or - if it doesn't exist
@@ -237,5 +238,5 @@ function mnt_core_get_blockdevice_size
 end
 
 function mnt_core_get_blockdevice_label
-    blkid -o value --match-tag LABEL $argv
+    lsblk -o PARTLABEL,PARTUUID --json /dev/sdc1 | jq -r '.blockdevices[0].partlabel'
 end
