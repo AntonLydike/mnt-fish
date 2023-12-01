@@ -10,8 +10,8 @@ function mnt
         echo "Usage:        mnt -hlfu [IDENTIFIER]"
         echo
         echo "Flags"
-        echo "        -l/--list         List information on all available mounts (default behaviour if no IDENTIFIER"
-        echo "                          was specified)"
+        echo "        -l/--list         List information on all available mounts default behaviour if no IDENTIFIER"
+        echo "                          was specified"
         echo
         echo "        -h/--help         Print this help page"
         echo 
